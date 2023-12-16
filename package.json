@@ -1,0 +1,27 @@
+{
+  "name": "docukit",
+  "version": "0.0.1",
+  "description": "Turn a sveltekit project into a documentation site",
+  "main": "/dist/index.js",
+  "bin": {
+    "docukit": "/dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "link:cli": "pnpm unlink && pnpm link --global"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "colorette": "^2.0.20",
+    "commander": "^11.1.0"
+  },
+  "type": "module"
+}
