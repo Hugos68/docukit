@@ -1,5 +1,5 @@
-import { intro } from "@clack/prompts";
-import { initialize } from "./initialize.js";
+import { intro, outro } from "@clack/prompts";
+import { initialize } from "./initialize/index.js";
 
 export type CommandOptions = {
     startMessage: string;
@@ -11,7 +11,7 @@ export function command({ startMessage, command, endMessage }: CommandOptions) {
     return async () => {
         intro(startMessage);
         await command();
-        intro(endMessage);
+        outro(endMessage);
     }
 }
 
