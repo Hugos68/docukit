@@ -1,7 +1,7 @@
 {
   "name": "docukit",
   "version": "0.0.1",
-  "description": "Turn a sveltekit project into a documentation site",
+  "description": "CLI for turning sveltekit apps into markdown documentation sites",
   "main": "/dist/index.js",
   "bin": {
     "docukit": "/dist/index.js"

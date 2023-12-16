@@ -1,9 +1,24 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { initialize } from "./commands/initialize.js";
+import { getPackageJson } from "./utility/config.js";
+import { command, commands } from "./commands/command.js";
 
-const program = new Command();
+async function main() {
+    const packageJson = await getPackageJson();
 
-program.command('initialize').alias('init').description('Initialize docukit').action(initialize);
+    const program = new Command()
+        .name('docukit')
+        .version(packageJson.version)
+        .description(packageJson.description)
+        .usage('<command>');
 
-program.parse(process.argv);
+    program
+        .command('initialize')
+        .alias('init')
+        .description('Initialize docukit')
+        .action(command(commands.initialize));
+    
+    program.parse(process.argv);
+}
+
+await main();

@@ -1,8 +1,13 @@
-import { intro, outro, text } from "@clack/prompts";
+import { text } from "@clack/prompts";
+import { getPackageJson } from "../utility/config.js";
+import { prompt } from "../utility/prompt.js";
 
 export async function initialize() {
-  intro("Welcome to Docukit!");
+  const projectName = await prompt(text, {
+    message: "Please enter the name of your project:",
+    placeholder: (await getPackageJson()).name,
+    defaultValue: (await getPackageJson()).name
+  });
 
-
-  outro("Finished initializing Docukit!");
+  console.log(projectName);
 }
