@@ -1,9 +1,10 @@
-import { getPackage, getPackageParsed } from "../../utility/config.js";
+import { getPackageParsed } from "../../utility/config.js";
 import { ProjectConfiguration } from "./types.js";
 import {
 	Job,
 	configureSvelteConfig,
 	createConfigurationFile,
+	createMdsvexConfig,
 	createPagesDirectory,
 } from "./jobs.js";
 import {
@@ -54,21 +55,27 @@ async function create(configuration: ProjectConfiguration) {
 	const jobs: Job[] = [];
 
 	jobs.push({
-		startMessage: "Creating configuration file...",
-		stopMessage: "Created configuration file.",
+		startMessage: "Creating Docukit config...",
+		stopMessage: "Successfully created Docukit config.",
 		task: () => createConfigurationFile(configuration),
 	});
 
 	jobs.push({
-		startMessage: "Pages folder...",
-		stopMessage: "Created pages folder.",
-		task: () => createPagesDirectory(),
+		startMessage: "Creating Mdsvex config...",
+		stopMessage: "Successfully created Mdsvex config.",
+		task: () => createMdsvexConfig(),
 	});
 
 	jobs.push({
-		startMessage: "Configurating Svelte config...",
-		stopMessage: "Configured Svelte config.",
+		startMessage: "Creating Svelte config...",
+		stopMessage: "Successfully created Svelte config.",
 		task: () => configureSvelteConfig(),
+	});
+
+	jobs.push({
+		startMessage: "Creating pages directory...",
+		stopMessage: "Successfully created pages directory.",
+		task: () => createPagesDirectory(),
 	});
 
 	for (const job of jobs) {

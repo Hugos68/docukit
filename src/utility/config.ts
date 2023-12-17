@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { userDir } from "./dir.js";
+import { packageDir, userDir } from "./dir.js";
 import { join } from "path";
 import { abort } from "./abort.js";
 
@@ -30,4 +30,18 @@ export async function getSvelteConfig() {
 			`No svelte.config.js found in the current directory: "${userDir()}", make sure you are in the root of your project.`,
 		);
 	}
+}
+
+export async function getSvelteConfigTemplate() {
+	return fs.readFile(
+		join(packageDir(), "config-templates", "svelte.config.js"),
+		"utf-8",
+	);
+}
+
+export async function getMdsvexConfigTemplate() {
+	return fs.readFile(
+		join(packageDir(), "config-templates", "mdsvex.config.js"),
+		"utf-8",
+	);
 }

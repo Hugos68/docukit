@@ -2,8 +2,10 @@ import { join } from "path";
 import { ProjectConfiguration } from "./types.js";
 import { promises as fs } from "fs";
 import { userDir } from "../../utility/dir.js";
-import { getSvelteConfig } from "../../utility/config.js";
-import { parse } from "@babel/parser";
+import {
+	getMdsvexConfigTemplate,
+	getSvelteConfigTemplate,
+} from "../../utility/config.js";
 
 export type Job = {
 	startMessage: string;
@@ -20,12 +22,17 @@ export async function createConfigurationFile(
 	);
 }
 
-export async function createPagesDirectory() {
-	await fs.mkdir(join(userDir(), "src", "pages"), { recursive: true });
+export async function createMdsvexConfig() {
+	const mdsvexConfigTemplate = await getMdsvexConfigTemplate();
+	console.log(mdsvexConfigTemplate)
+	await fs.writeFile(join(userDir(), "mdsvex.config.js"), mdsvexConfigTemplate);
 }
 
 export async function configureSvelteConfig() {
-	const svelteConfigRaw = await getSvelteConfig();
-	const svelteConfig = parse(svelteConfigRaw, { sourceType: "module" });
-	console.log(svelteConfig.program.body)
+	const svelteConfigTemplate = await getSvelteConfigTemplate();
+	await fs.writeFile(join(userDir(), "svelte.config.js"), svelteConfigTemplate);
+}
+
+export async function createPagesDirectory() {
+	await fs.mkdir(join(userDir(), "src", "pages"), { recursive: true });
 }
